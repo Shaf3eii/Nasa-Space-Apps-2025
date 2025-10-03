@@ -5,7 +5,7 @@ import joblib
 import numpy as np
 import os
 
-# --- Dark Mode CSS ---
+# Dark Mode CSS
 # This CSS is injected to create the "bare mode" / dark theme.
 st.markdown("""
 <style>
@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 """, unsafe_allow_html=True)
 
 
-# --- Load Model and Scaler ---
+# Load Model and Scaler 
 # Use a function with st.cache_resource to load these files only once,
 # which makes the app faster.
 @st.cache_resource
@@ -69,7 +69,7 @@ def load_model_and_scaler():
 
 model, scaler = load_model_and_scaler()
 
-# --- Web App User Interface ---
+#  Web App User Interface 
 
 # Set up the page title and icon
 st.set_page_config(page_title="Exoplanet Predictor", page_icon="🪐")
@@ -89,7 +89,7 @@ else:
     Use the sliders on the left to input the characteristics of a transit signal you want to analyze.
     """)
 
-    # --- Sidebar for User Inputs ---
+    #  Sidebar for User Inputs 
     st.sidebar.header("Signal Features")
     st.sidebar.markdown("Adjust the sliders to match the observed stellar signal.")
 
@@ -111,7 +111,7 @@ else:
     teq = st.sidebar.number_input("Equilibrium Temperature [K] (koi_teq)", min_value=0, value=300, step=10)
     insol = st.sidebar.number_input("Insolation Flux [Earth flux] (koi_insol)", min_value=0.0, value=1.0, step=0.1)
 
-    # --- Prediction Logic ---
+    # Prediction Logic 
     # Create a button that triggers the prediction when clicked.
     if st.button("Analyze Signal and Predict", type="primary"):
         # Collect all the inputs from the sidebar into a single NumPy array
@@ -133,14 +133,14 @@ else:
         if prediction[0] == 1:
             st.success(f"**Potential Planet Detected!** 🔭")
             st.write(f"The model is **{prediction_proba[0][1] * 100:.2f}%** confident this is an exoplanet candidate.")
-            #
+            
             st.image("https://images.pexels.com/photos/39561/solar-flare-sun-eruption-energy-39561.jpeg",
                      caption="An artist's impression of an exoplanet system.")
         else:
             st.error(f"**Likely Not a Planet.** 📉")
             st.write(
                 f"The model is **{prediction_proba[0][0] * 100:.2f}%** confident this is a false positive or other stellar phenomenon.")
-            #
+            
             st.image("https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg",
                      caption="The signal might be caused by other stellar activity.")
 
